@@ -113,6 +113,19 @@ class Space extends AbstractObject {
   }
 
   /**
+   * @return TaskListCollection
+   */
+  public function folderlessLists() {
+    if (is_null($this->folderlessLists)) {
+      $this->folderlessLists = new FolderlessListCollection(
+      $this,
+      $this->client()->get("space/{$this->id()}/list")['lists']
+      );
+    }
+    return $this->folderlessLists;
+  }
+
+  /**
    * Access parent class.
    *
    * @return Team
