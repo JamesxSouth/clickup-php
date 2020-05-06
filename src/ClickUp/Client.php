@@ -2,7 +2,7 @@
 
 namespace ClickUp;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\Client as GuzzleHttpClient;
 use ClickUp\Objects\TaskFinder;
 use ClickUp\Objects\Team;
 use ClickUp\Objects\TeamCollection;
@@ -18,7 +18,7 @@ class Client {
    *
    */
   public function __construct($apiToken) {
-    $this->guzzleClient = new Client([
+    $this->guzzleClient = new GuzzleHttpClient([
       'base_uri' => 'https://api.clickup.com/api/v2/',
       'headers' => [
         'Authorization' => $apiToken,
