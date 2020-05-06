@@ -57,6 +57,12 @@ class Space extends AbstractObject {
   private $projects = NULL;
 
   /**
+   * @var FolderlessListCollection|null
+   */
+
+  private $folderlessLists = NULL;
+
+  /**
    * @return int
    */
   public function id() {
