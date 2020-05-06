@@ -2,101 +2,111 @@
 
 namespace ClickUp\Objects;
 
-class TaskList extends AbstractObject
-{
-	use TaskFinderTrait;
+/**
+ *
+ */
+class TaskList extends AbstractObject {
+  use TaskFinderTrait;
 
-	/* @var int $id*/
-	private $id;
+  /**
+   * @var int
+   */
 
-	/* @var string $name */
-	private $name;
+  private $id;
 
-	/* @var Project $project */
-	private $project;
+  /**
+   * @var string
+   */
 
-	/**
-	 * @return int
-	 */
-	public function id()
-	{
-		return $this->id;
-	}
+  private $name;
 
-	/**
-	 * @return string
-	 */
-	public function name()
-	{
-		return $this->name;
-	}
+  /**
+   * @var Project
+   */
 
-	/**
-	 * Access parent class.
-	 *
-	 * @return Project
-	 */
-	public function project()
-	{
-		return $this->project;
-	}
+  private $project;
 
-	/**
-	 * @param Project $project
-	 */
-	public function setProject(Project $project)
-	{
-		$this->project = $project;
-	}
+  /**
+   * @return int
+   */
+  public function id() {
+    return $this->id;
+  }
 
-	/**
-	 * @see https://jsapi.apiary.io/apis/clickup/reference/0/list/edit-list.html
-	 * @param array $body
-	 * @return array
-	 */
-	public function edit($body)
-	{
-		return $this->client()->put(
-			"list/{$this->id()}",
-			$body
-		);
-	}
+  /**
+   * @return string
+   */
+  public function name() {
+    return $this->name;
+  }
 
-	/**
-	 * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/create-task-in-list?console=1.html
-	 * @param array $body
-	 * @return array
-	 */
-	public function createTask($body)
-	{
-		return $this->client()->post(
-			"list/{$this->id()}/task",
-			$body
-		);
-	}
+  /**
+   * Access parent class.
+   *
+   * @return Project
+   */
+  public function project() {
+    return $this->project;
+  }
 
-	/**
-	 * @return int
-	 */
-	public function teamId()
-	{
-		return $this->project()->space()->team()->id();
-	}
+  /**
+   * @param Project $project
+   */
+  public function setProject(Project $project) {
+    $this->project = $project;
+  }
 
-	/**
-	 * @return array
-	 */
-	protected function taskFindParams()
-	{
-		return ['list_ids' => [$this->id()]];
-	}
+  /**
+   * @param Space $space
+   */
+  public function setSpace(Space $space) {
+    $this->space = $space;
+  }
 
-	/**
-	 * @param array $array
-	 */
-	protected function fromArray($array)
-	{
-		$this->id = $array['id'];
-		$this->name = $array['name'];
-	}
+  /**
+   * @see https://jsapi.apiary.io/apis/clickup/reference/0/list/edit-list.html
+   * @param array $body
+   * @return array
+   */
+  public function edit($body) {
+    return $this->client()->put(
+    "list/{$this->id()}",
+    $body
+    );
+  }
+
+  /**
+   * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/create-task-in-list?console=1.html
+   * @param array $body
+   * @return array
+   */
+  public function createTask($body) {
+    return $this->client()->post(
+    "list/{$this->id()}/task",
+    $body
+    );
+  }
+
+  /**
+   * @return int
+   */
+  public function teamId() {
+    return $this->project()->space()->team()->id();
+  }
+
+  /**
+   * @return array
+   */
+  protected function taskFindParams() {
+    return ['list_ids' => [$this->id()]];
+  }
+
+  /**
+   * @param array $array
+   */
+  protected function fromArray($array) {
+    $this->id = $array['id'];
+    $this->name = $array['name'];
+  }
+
 }
