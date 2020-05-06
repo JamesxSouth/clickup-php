@@ -27,6 +27,12 @@ class TaskList extends AbstractObject {
   private $project;
 
   /**
+   * @var Space
+   */
+
+  private $space;
+
+  /**
    * @return int
    */
   public function id() {
@@ -47,6 +53,15 @@ class TaskList extends AbstractObject {
    */
   public function project() {
     return $this->project;
+  }
+
+  /**
+   * Access parent class.
+   *
+   * @return Space
+   */
+  public function space() {
+    return $this->space;
   }
 
   /**
@@ -91,6 +106,9 @@ class TaskList extends AbstractObject {
    * @return int
    */
   public function teamId() {
+    if (!is_null($this->space)) {
+      return $this->space()->team()->id();
+    }
     return $this->project()->space()->team()->id();
   }
 
